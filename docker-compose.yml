@@ -11,4 +11,4 @@ services:
     zipkin:
       image: openzipkin/zipkin
       ports:
-        - 9411:9411
+        - "9411:9411"
