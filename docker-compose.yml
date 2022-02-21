@@ -22,3 +22,5 @@ services:
         - "8888:8888"
       depends_on:
         - eureka
+      environment:
+        EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://netflix:eureka@eureka:8761/eureka/
