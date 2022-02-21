@@ -12,3 +12,13 @@ services:
       image: openzipkin/zipkin
       ports:
         - "9411:9411"
+    eureka:
+      image: ingjulianvega/ha-eureka
+      ports:
+        - "8761:8761"
+    config:
+      image: ingjulianvega/ha-config-server
+      ports:
+        - "8888:8888"
+      depends_on:
+        - eureka

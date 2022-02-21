@@ -1,4 +1,5 @@
---Esta data no se está insertando nunca, se deja para copiar y pegar en la base de datos
+#Esta data no se está insertando nunca, se deja para copiar y pegar en la base de datos
+#Se debe ejecutar dentro de un sql del esquema person
 INSERT INTO person
 (id, created_by, created_date, last_modified_by, last_modified_date, version, document_number, name)
 VALUES('02438b2e-df71-4427-8ed2-6ff475fd66ab', 'spring', NOW(), 'spring', NOW(), 0, '12345678', 'Julian');
