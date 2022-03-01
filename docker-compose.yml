@@ -24,3 +24,52 @@ services:
         - eureka
       environment:
         EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://netflix:eureka@eureka:8761/eureka/
+    person:
+      image: ingjulianvega/ha-person
+      ports:
+        - "8080:8080"
+      depends_on:
+        - eureka
+        - config
+        - db
+      environment:
+        EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://netflix:eureka@eureka:8761/eureka/
+        SPRING_PROFILES_ACTIVE: local,local-discovery
+        SPRING_ZIPKIN_BASEURL: http://zipkin
+    pet:
+      image: ingjulianvega/ha-pet
+      ports:
+        - "8080:8080"
+      depends_on:
+        - eureka
+        - config
+        - db
+      environment:
+        EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://netflix:eureka@eureka:8761/eureka/
+        SPRING_PROFILES_ACTIVE: local,local-discovery
+        SPRING_ZIPKIN_BASEURL: http://zipkin
+    owner:
+      image: ingjulianvega/ha-owner
+      ports:
+        - "8080:8080"
+      depends_on:
+        - eureka
+        - config
+        - db
+      environment:
+        EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://netflix:eureka@eureka:8761/eureka/
+        SPRING_PROFILES_ACTIVE: local,local-discovery
+        SPRING_ZIPKIN_BASEURL: http://zipkin
+    #Test project to isolate errors
+#    alpha:
+#      image: ingjulianvega/alpha
+#      ports:
+#        - "8080:8080"
+#      environment:
+#        #Este funciona
+#        #SPRING_DATASOURCE_URL: jdbc:mysql://host.docker.internal:3306/personservice?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+#        SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/personservice?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+
+networks:
+  application:
+    driver: bridge
