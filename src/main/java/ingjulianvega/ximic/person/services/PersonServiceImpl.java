@@ -25,9 +25,9 @@ public class PersonServiceImpl implements PersonService {
     private final PersonRepository personRepository;
     private final PersonMapper personMapper;
 
-    @Cacheable(cacheNames = "personListCache")
+    @Cacheable(cacheNames = "personListCache", condition = "#usingCache == true")
     @Override
-    public PersonList get() {
+    public PersonList get(Boolean usingCache) {
         log.debug("get()...");
         return PersonList
                 .builder()
