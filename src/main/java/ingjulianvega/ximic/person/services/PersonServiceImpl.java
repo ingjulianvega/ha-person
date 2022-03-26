@@ -12,6 +12,9 @@ import ingjulianvega.ximic.person.web.model.PersonList;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -27,11 +30,12 @@ public class PersonServiceImpl implements PersonService {
 
     @Cacheable(cacheNames = "personListCache", condition = "#usingCache == true")
     @Override
-    public PersonList get(Boolean usingCache) {
+    public PersonList get(Boolean usingCache, Integer pageNo, Integer pageSize, String sortBy) {
         log.debug("get()...");
+        Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
         return PersonList
                 .builder()
-                .personList(personMapper.personEntityListToPersonDtoList(personRepository.findAllByOrderByName()))
+                .personList(personMapper.personEntityListToPersonDtoList(personRepository.findAll(paging).getContent()))
                 .build();
     }
 

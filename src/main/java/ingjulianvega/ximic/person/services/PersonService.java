@@ -8,7 +8,7 @@ import ingjulianvega.ximic.person.web.model.PersonList;
 import java.util.UUID;
 
 public interface PersonService {
-    PersonList get(Boolean usingCache);
+    PersonList get(Boolean usingCache, Integer pageNo, Integer pageSize, String sortBy);
 
     PersonDto getById(UUID id);
 

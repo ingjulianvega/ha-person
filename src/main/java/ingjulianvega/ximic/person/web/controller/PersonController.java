@@ -20,8 +20,8 @@ public class PersonController implements PersonI {
     private final PersonService personService;
 
     @Override
-    public ResponseEntity<PersonList> get(Boolean usingCache) {
-        return new ResponseEntity<>(personService.get(usingCache), HttpStatus.OK);
+    public ResponseEntity<PersonList> get(Boolean usingCache, Integer pageNo, Integer pageSize, String sortBy) {
+        return new ResponseEntity<>(personService.get(usingCache, pageNo, pageSize, sortBy), HttpStatus.OK);
     }
 
     @Override

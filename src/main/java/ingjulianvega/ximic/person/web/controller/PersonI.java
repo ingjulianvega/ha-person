@@ -34,7 +34,12 @@ public interface PersonI {
     @RequestMapping(value = "/",
             produces = {"application/json"},
             method = RequestMethod.GET)
-    ResponseEntity<PersonList> get(@Parameter(in = ParameterIn.QUERY, description = "Using cache?", required = true, schema = @Schema()) @NotNull @Valid @RequestParam(value = "using-cache", required = true, defaultValue = "false") Boolean usingCache);
+    ResponseEntity<PersonList> get(
+            @Parameter(in = ParameterIn.QUERY, description = "Using cache?", required = true, schema = @Schema()) @NotNull @Valid @RequestParam(value = "using-cache", required = true, defaultValue = "false") Boolean usingCache,
+            @Parameter(in = ParameterIn.QUERY, description = "Page number", required = true, schema = @Schema()) @NotNull @Valid @RequestParam(value = "page-no", required = true, defaultValue = "0") Integer pageNo,
+            @Parameter(in = ParameterIn.QUERY, description = "Page size", required = true, schema = @Schema()) @NotNull @Valid @RequestParam(value = "page-size", required = true, defaultValue = "10") Integer pageSize,
+            @Parameter(in = ParameterIn.QUERY, description = "Sort by", required = true, schema = @Schema()) @NotNull @Valid @RequestParam(value = "sort-by", required = true, defaultValue = "name") String sortBy
+            );
 
 
     @Operation(summary = "Endpoint to get the information of a  person given the id", description = "Returns a person", tags = {"person"})
