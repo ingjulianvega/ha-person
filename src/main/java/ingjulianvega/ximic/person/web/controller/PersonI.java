@@ -1,6 +1,7 @@
 package ingjulianvega.ximic.person.web.controller;
 
 import ingjulianvega.ximic.person.web.model.ApiError;
+import ingjulianvega.ximic.person.web.model.PagedPersonList;
 import ingjulianvega.ximic.person.web.model.Person;
 import ingjulianvega.ximic.person.web.model.PersonDto;
 import ingjulianvega.ximic.person.web.model.PersonList;
@@ -34,10 +35,10 @@ public interface PersonI {
     @RequestMapping(value = "/",
             produces = {"application/json"},
             method = RequestMethod.GET)
-    ResponseEntity<PersonList> get(
+    ResponseEntity<PagedPersonList> get(
             @Parameter(in = ParameterIn.QUERY, description = "Using cache?", required = true, schema = @Schema()) @NotNull @Valid @RequestParam(value = "using-cache", required = true, defaultValue = "false") Boolean usingCache,
             @Parameter(in = ParameterIn.QUERY, description = "Page number", required = true, schema = @Schema()) @NotNull @Valid @RequestParam(value = "page-no", required = true, defaultValue = "0") Integer pageNo,
-            @Parameter(in = ParameterIn.QUERY, description = "Page size", required = true, schema = @Schema()) @NotNull @Valid @RequestParam(value = "page-size", required = true, defaultValue = "10") Integer pageSize,
+            @Parameter(in = ParameterIn.QUERY, description = "Page size", required = true, schema = @Schema()) @NotNull @Valid @RequestParam(value = "page-size", required = true, defaultValue = "3") Integer pageSize,
             @Parameter(in = ParameterIn.QUERY, description = "Sort by", required = true, schema = @Schema()) @NotNull @Valid @RequestParam(value = "sort-by", required = true, defaultValue = "name") String sortBy
             );
 

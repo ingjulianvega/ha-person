@@ -6,12 +6,13 @@ import ingjulianvega.ximic.person.domain.PersonEntity;
 import ingjulianvega.ximic.person.domain.repositories.PersonRepository;
 import ingjulianvega.ximic.person.exception.PersonException;
 import ingjulianvega.ximic.person.web.Mappers.PersonMapper;
+import ingjulianvega.ximic.person.web.model.PagedPersonList;
 import ingjulianvega.ximic.person.web.model.Person;
 import ingjulianvega.ximic.person.web.model.PersonDto;
-import ingjulianvega.ximic.person.web.model.PersonList;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -30,11 +31,18 @@ public class PersonServiceImpl implements PersonService {
 
     @Cacheable(cacheNames = "personListCache", condition = "#usingCache == true")
     @Override
-    public PersonList get(Boolean usingCache, Integer pageNo, Integer pageSize, String sortBy) {
+    public PagedPersonList get(Boolean usingCache, Integer pageNo, Integer pageSize, String sortBy) {
         log.debug("get()...");
         Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
-        return PersonList
-                .builder()
+        Page springPersonPage = personRepository.findAll(paging);
+        return PagedPersonList.builder()
+                .totalItems(springPersonPage.getTotalElements())
+                .page(ingjulianvega.ximic.person.web.model.Page.builder()
+                        .sort(springPersonPage.getPageable().getSort().toString())
+                        .totalPages(springPersonPage.getTotalPages())
+                        .currentPage(springPersonPage.getPageable().getPageNumber())
+                        .size(springPersonPage.getPageable().getPageSize())
+                        .build())
                 .personList(personMapper.personEntityListToPersonDtoList(personRepository.findAll(paging).getContent()))
                 .build();
     }

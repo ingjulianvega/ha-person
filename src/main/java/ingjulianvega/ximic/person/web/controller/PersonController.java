@@ -2,9 +2,9 @@ package ingjulianvega.ximic.person.web.controller;
 
 
 import ingjulianvega.ximic.person.services.PersonService;
+import ingjulianvega.ximic.person.web.model.PagedPersonList;
 import ingjulianvega.ximic.person.web.model.Person;
 import ingjulianvega.ximic.person.web.model.PersonDto;
-import ingjulianvega.ximic.person.web.model.PersonList;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +20,7 @@ public class PersonController implements PersonI {
     private final PersonService personService;
 
     @Override
-    public ResponseEntity<PersonList> get(Boolean usingCache, Integer pageNo, Integer pageSize, String sortBy) {
+    public ResponseEntity<PagedPersonList> get(Boolean usingCache, Integer pageNo, Integer pageSize, String sortBy) {
         return new ResponseEntity<>(personService.get(usingCache, pageNo, pageSize, sortBy), HttpStatus.OK);
     }
 

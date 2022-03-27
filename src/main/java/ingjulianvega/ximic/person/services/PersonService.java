@@ -1,14 +1,14 @@
 package ingjulianvega.ximic.person.services;
 
 
+import ingjulianvega.ximic.person.web.model.PagedPersonList;
 import ingjulianvega.ximic.person.web.model.Person;
 import ingjulianvega.ximic.person.web.model.PersonDto;
-import ingjulianvega.ximic.person.web.model.PersonList;
 
 import java.util.UUID;
 
 public interface PersonService {
-    PersonList get(Boolean usingCache, Integer pageNo, Integer pageSize, String sortBy);
+    PagedPersonList get(Boolean usingCache, Integer pageNo, Integer pageSize, String sortBy);
 
     PersonDto getById(UUID id);
 
