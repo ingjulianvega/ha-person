@@ -34,7 +34,7 @@ public class PersonServiceImpl implements PersonService {
     public PagedPersonList get(Boolean usingCache, Integer pageNo, Integer pageSize, String sortBy) {
         log.debug("get()...");
         Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
-        Page springPersonPage = personRepository.findAll(paging);
+        Page<PersonEntity> springPersonPage = personRepository.findAll(paging);
         return PagedPersonList.builder()
                 .totalItems(springPersonPage.getTotalElements())
                 .page(ingjulianvega.ximic.person.web.model.Page.builder()
